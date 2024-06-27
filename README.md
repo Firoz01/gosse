@@ -9,7 +9,8 @@ go get github.com/Firoz01/gosse
 ```
 ## Basic Setup
 
-```package main
+```go
+package main
 
 main(){
  SSEHandler := NewSSEHandler()
@@ -27,7 +28,8 @@ main(){
 
 ## Publishing Events
 
-```func main() {
+```go
+func main() {
 	SSEHandler := sse.NewSSEHandler()
 	go SSEHandler.Run()
 	defer func() {
