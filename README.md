@@ -9,33 +9,31 @@ go get github.com/Firoz01/gosse
 ```
 ## Basic Setup
 
-```package main
+``` go
 
-main(){
- SSEHandler := NewSSEHandler()
- go SSEHandler.Run()
- 	defer func() {
-		SSEHandler.Shutdown()
-	}()
-	  http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
-        gosse.SSEHandlerEndpoint(handler, w, r)
-    })
-    
-    http.ListenAndServe(":8080", nil)
+func main() {
+	SSEHandler := gosse.NewServer()
+	go SSEHandler.Run()
+	defer SSEHandler.Shutdown()
+
+	http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
+		gosse.SSEHandlerEndpoint(SSEHandler, w, r)
+	})
+
+	http.ListenAndServe(":8080", nil)
 }
 ```
 
 ## Publishing Events
 
-```func main() {
-	SSEHandler := sse.NewSSEHandler()
+``` go
+func main() {
+	SSEHandler := gosse.NewServer()
 	go SSEHandler.Run()
-	defer func() {
-		SSEHandler.Shutdown()
-	}()
+	defer SSEHandler.Shutdown()
 
 	http.HandleFunc("/events", func(w http.ResponseWriter, r *http.Request) {
-		sse.SSEHandlerEndpoint(SSEHandler, w, r)
+		gosse.SSEHandlerEndpoint(SSEHandler, w, r)
 	})
 
 	http.HandleFunc("/publish", func(w http.ResponseWriter, r *http.Request) {
