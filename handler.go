@@ -19,7 +19,7 @@ func SSEHandlerEndpoint(server *Server, w http.ResponseWriter, r *http.Request) 
 		http.Error(w, "Streaming unsupported!", http.StatusInternalServerError)
 		return
 	}
-
+	//
 	for {
 		select {
 		case msg, ok := <-client.Message:
